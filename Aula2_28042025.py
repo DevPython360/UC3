@@ -1,15 +1,36 @@
 import random
+import os
+
+def limpar_tela():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def jogo_da_forca():
-    palavras = ["python", "programacao", "computador", "algoritmo", "desenvolvimento"]
-    
+    # Dicionário de palavras e suas dicas
+    palavras_com_dicas = {
+        "python": "Linguagem de programação bastante usada em ciência de dados",
+        "programacao": "Ato de escrever códigos para computadores",
+        "computador": "Máquina usada para processar informações",
+        "algoritmo": "Sequência de passos para resolver um problema",
+        "desenvolvimento": "Processo de criar sistemas ou softwares"
+    }
+
     while True:
-        palavra_secreta = random.choice(palavras)
+        limpar_tela()
+        print("\nBem-vindo ao Jogo da Forca!")
+
+        escolha = input("Deseja digitar a palavra secreta? (s/n): ").lower()
+        if escolha == 's':
+            palavra_secreta = input("Digite a palavra secreta (não deixe o outro jogador ver!): ").lower()
+            dica = input("Digite uma dica para a palavra: ")
+            limpar_tela()
+        else:
+            palavra_secreta, dica = random.choice(list(palavras_com_dicas.items()))
+
         letras_corretas = set()
         letras_erradas = set()
         tentativas = 6
 
-        print("\nBem-vindo ao Jogo da Forca!")
+        print(f"\nDica: {dica}")
 
         while tentativas > 0:
             palavra_exibida = ""
@@ -23,9 +44,19 @@ def jogo_da_forca():
             print("Letras erradas:", " ".join(sorted(letras_erradas)))
             print(f"Tentativas restantes: {tentativas}")
 
-            if palavra_exibida == palavra_secreta:
+            if "_" not in palavra_exibida:
                 print("Parabéns! Você venceu!")
                 break
+
+            # Opção para tentar adivinhar a palavra completa
+            tentar_palavra = input("\nVocê quer tentar adivinhar a palavra inteira? (s/n): ").lower()
+            if tentar_palavra == 's':
+                tentativa_palavra = input("Digite a palavra inteira: ").lower()
+                if tentativa_palavra == palavra_secreta:
+                    print("Parabéns! Você acertou a palavra!")
+                    break
+                else:
+                    print("A palavra está incorreta. Continue tentando!")
 
             letra = input("Digite uma letra: ").lower()
 
@@ -46,9 +77,12 @@ def jogo_da_forca():
                 print("Letra incorreta!")
 
         else:
-            print(f"Game over! A palavra era: {palavra_secreta}")
+            print(f"\nGame over! A palavra era: {palavra_secreta}")
         
         jogar_novamente = input("Deseja jogar novamente? (s/n): ").lower()
         if jogar_novamente != 's':
             print("Obrigado por jogar!")
             break
+
+# Inicia o jogo
+jogo_da_forca()
