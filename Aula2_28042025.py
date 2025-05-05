@@ -5,7 +5,6 @@ def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def jogo_da_forca():
-    # Dicionário de palavras e suas dicas
     palavras_com_dicas = {
         "python": "Linguagem de programação bastante usada em ciência de dados",
         "programacao": "Ato de escrever códigos para computadores",
@@ -48,7 +47,6 @@ def jogo_da_forca():
                 print("Parabéns! Você venceu!")
                 break
 
-            # Opção para tentar adivinhar a palavra completa
             tentar_palavra = input("\nVocê quer tentar adivinhar a palavra inteira? (s/n): ").lower()
             if tentar_palavra == 's':
                 tentativa_palavra = input("Digite a palavra inteira: ").lower()
@@ -84,5 +82,5 @@ def jogo_da_forca():
             print("Obrigado por jogar!")
             break
 
-# Inicia o jogo
+
 jogo_da_forca()
